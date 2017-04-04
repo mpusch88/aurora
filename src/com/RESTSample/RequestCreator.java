@@ -1,14 +1,9 @@
 package com.RESTSample;
 
 import java.io.InputStream;
-import java.util.List;
 import java.util.Objects;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
 import org.json.JSONArray;
@@ -43,7 +38,6 @@ public class RequestCreator {
 		}catch(Exception e){
 			
 		}
-		
 		
 		return request;
 	}
@@ -220,7 +214,10 @@ public class RequestCreator {
             String latCoor = jsonObject.getString("lat");
 
             String address = "https://maps.googleapis.com/maps/api/staticmap?center="+latCoor+","+longCoor+"&zoom=13&size=600x300&format=png&key=" + APIKEY;
-            HttpResponse response = Unirest.get(address)
+            
+            // IF THIS BREAKS LOOK HERE
+            
+            HttpResponse<InputStream> response = Unirest.get(address)
                     .header("accept", "application/json")
                     .asBinary();
             //Contains raw binary data.
